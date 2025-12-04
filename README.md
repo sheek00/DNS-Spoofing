@@ -26,7 +26,9 @@ sudo pip install NetfilterQueue
 
 ## 🔥 iptables Rules
 Forward DNS packets to the queue:
+
 sudo iptables -I INPUT -j NFQUEUE --queue-num 0
+
 sudo iptables -I OUTPUT -j NFQUEUE --queue-num 0
 
 Reset rules:
